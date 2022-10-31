@@ -29,7 +29,7 @@ apple_rules_dependencies()
 android_sdk_repository(
     name = "androidsdk",
     api_level = 32,
-    build_tools_version = "29.0.5",
+    build_tools_version = "30.0.2",
 )
 
 http_archive(
@@ -54,7 +54,7 @@ load("@rules_jvm_external//:defs.bzl", "maven_install")
 
 maven_install(
     artifacts = [
-        "androidx.core:core-ktx:1.7.0",
+        "androidx.core:core-ktx:1.3.2",
         "androidx.appcompat:appcompat:1.4.1",
         "com.google.android.material:material:1.5.0",
         "androidx.constraintlayout:constraintlayout:2.1.3",
