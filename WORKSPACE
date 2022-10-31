@@ -2,26 +2,26 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 # Rules for iOS
 http_archive(
-    name = "rules_swift",
+    name = "build_bazel_rules_swift",
     sha256 = "51efdaf85e04e51174de76ef563f255451d5a5cd24c61ad902feeadafc7046d9",
-    url = "https://github.com/bazelbuild/rules_swift/archive/refs/tags/1.2.0.tar.gz",
+    url = "https://github.com/bazelbuild/rules_swift/releases/download/1.2.0/rules_swift.1.2.0.tar.gz",
 )
 
-load("@rules_swift//swift:repositories.bzl", "swift_rules_dependencies")
+load("@build_bazel_rules_swift//swift:repositories.bzl", "swift_rules_dependencies")
 
 swift_rules_dependencies()
 
-load("@rules_swift//swift:extras.bzl", "swift_rules_extra_dependencies")
+load("@build_bazel_rules_swift//swift:extras.bzl", "swift_rules_extra_dependencies")
 
 swift_rules_extra_dependencies()
 
 http_archive(
-    name = "rules_apple",
+    name = "build_bazel_rules_apple",
     sha256 = "90e3b5e8ff942be134e64a83499974203ea64797fd620eddeb71b3a8e1bff681",
-    url = "https://github.com/bazelbuild/rules_apple/archive/refs/tags/1.1.2.tar.gz",
+    url = "https://github.com/bazelbuild/rules_apple/releases/download/1.1.2/rules_apple.1.1.2.tar.gz",
 )
 
-load("@rules_apple//apple:repositories.bzl", "apple_rules_dependencies")
+load("@build_bazel_rules_apple//apple:repositories.bzl", "apple_rules_dependencies")
 
 apple_rules_dependencies()
 
@@ -33,7 +33,7 @@ android_sdk_repository(
 )
 
 http_archive(
-    name = "rules_android",
+    name = "build_bazel_rules_android",
     sha256 = "cd06d15dd8bb59926e4d65f9003bfc20f9da4b2519985c27e190cddc8b7a7806",
     strip_prefix = "rules_android-0.1.1",
     urls = ["https://github.com/bazelbuild/rules_android/archive/v0.1.1.zip"],
@@ -70,18 +70,18 @@ maven_install(
     ],
 )
 
-rules_kotlin_version = "legacy-1.4.0-rc-4"
+rules_kotlin_version = "legacy-1.4.0-rc4"
 
 rules_kotlin_sha = "9cc0e4031bcb7e8508fd9569a81e7042bbf380604a0157f796d06d511cff2769"
 
 http_archive(
-    name = "rules_kotlin",
+    name = "io_bazel_rules_kotlin",
     sha256 = rules_kotlin_sha,
-    urls = ["https://github.com/bazelbuild/rules_kotlin/releases/download/v%s/rules_kotlin_release.tgz" % rules_kotlin_version],
+    urls = ["https://github.com/bazelbuild/rules_kotlin/releases/download/%s/rules_kotlin_release.tgz" % rules_kotlin_version],
 )
 
-load("@rules_kotlin//kotlin:repositories.bzl", "kotlin_repositories", "kt_register_toolchains")
+load("@io_bazel_rules_kotlin//kotlin:kotlin.bzl", "kotlin_repositories", "kt_register_toolchains")
 
-kotlin_repositories()
+kotlin_repositories()  # if you want the default. Otherwise see custom kotlinc distribution below
 
-kt_register_toolchains()
+kt_register_toolchains()  # to use the default toolchain, otherwise see toolchains below
